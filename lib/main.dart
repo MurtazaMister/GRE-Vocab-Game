@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         "/home":(context)=>HomePage(),
         "/register":(context)=>RegisterPage1(),
         "/register/1":(context)=>RegisterPage1(),
-        "/register/2":(context)=>RegisterPage2(),
+        "/register/2":(context)=>RegisterPage1(),
       },
     );
   }
