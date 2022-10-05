@@ -31,7 +31,7 @@ class FirebaseCrud {
         .set(data)
         .whenComplete(() {
       response.code = 200;
-      response.message = "Sucessfully added to the database";
+      response.message = "Successfully added to the database";
     })
         .catchError((e) {
       response.code = 500;
@@ -42,10 +42,10 @@ class FirebaseCrud {
   }
 
   static Stream<QuerySnapshot> readUser() {
-    CollectionReference notesItemCollection =
+    CollectionReference userCollection =
         _Collection;
 
-    return notesItemCollection.snapshots();
+    return userCollection.snapshots();
   }
 
   static Future<Response> updateUser({
@@ -71,7 +71,7 @@ class FirebaseCrud {
         .update(data)
         .whenComplete(() {
       response.code = 200;
-      response.message = "Sucessfully updated Employee";
+      response.message = "Successfully updated User";
     })
         .catchError((e) {
       response.code = 500;
@@ -82,8 +82,7 @@ class FirebaseCrud {
   }
 
   static Future<Response> deleteUser({
-    required String username,
-    // required String password,
+    required String username
   }) async {
     Response response = Response();
     DocumentReference documentReferencer =
@@ -93,7 +92,7 @@ class FirebaseCrud {
         .delete()
         .whenComplete((){
       response.code = 200;
-      response.message = "Sucessfully Deleted Employee";
+      response.message = "Successfully Deleted User";
     })
         .catchError((e) {
       response.code = 500;
