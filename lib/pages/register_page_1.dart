@@ -10,10 +10,18 @@ class RegisterPage1 extends StatefulWidget {
 }
 
 class _RegisterPage1State extends State<RegisterPage1> {
-  final _formkey = GlobalKey<FormState>();
+  // final _formkey = GlobalKey<FormState>();
+
+  final first_name = TextEditingController();
+  final last_name = TextEditingController();
+  final username = TextEditingController();
+  final email = TextEditingController();
+  final password = TextEditingController();
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   moveToRegisterPage2(BuildContext context){
-    if(_formkey.currentState!.validate()){
+    if(_formKey.currentState!.validate()){
       Navigator.pushNamed(context, MyRoutes.registerPage2);
     }
   }
@@ -24,7 +32,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
-          key: _formkey,
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
