@@ -6,39 +6,62 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _users = _firestore.collection('users');
 class FirebaseCrud {
 
-  static Future<Response> addUser({
+  // static Future<Response> addUser({
+  //   required String first_name,
+  //   required String last_name,
+  //   required String username,
+  //   required String password,
+  //   required String email,
+  // }) async {
+  //
+  //   Response response = Response();
+  //   DocumentReference documentReferencer =
+  //   _users.doc();
+  //
+  //   Map<String, dynamic> data = <String, dynamic>{
+  //     "first_name": first_name,
+  //     "last_name": last_name,
+  //     "username" : username,
+  //     "password" : password,
+  //     "email" : email,
+  //
+  //   };
+  //
+  //   var result = await documentReferencer
+  //       .set(data)
+  //       .whenComplete(() {
+  //     response.code = 200;
+  //     response.message = "Successfully added to the database";
+  //   })
+  //       .catchError((e) {
+  //     response.code = 500;
+  //     response.message = e;
+  //   });
+  //
+  //   return response;
+  // }
+
+  static Future<String?> addUser({
     required String first_name,
     required String last_name,
     required String username,
     required String password,
     required String email,
   }) async {
-
-    Response response = Response();
-    DocumentReference documentReferencer =
-    _users.doc();
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "first_name": first_name,
-      "last_name": last_name,
-      "username" : username,
-      "password" : password,
-      "email" : email,
-
-    };
-
-    var result = await documentReferencer
-        .set(data)
-        .whenComplete(() {
-      response.code = 200;
-      response.message = "Successfully added to the database";
-    })
-        .catchError((e) {
-      response.code = 500;
-      response.message = e;
-    });
-
-    return response;
+    CollectionReference users = _firestore.collection("users");
+    try {
+      users.add({
+        "first_name": first_name,
+        "last_name": last_name,
+        "username": username,
+        "password": password,
+        "email": email,
+      });
+      return null;
+    }
+    on Exception catch(err) {
+      return "error";
+    }
   }
 
   static Stream<QuerySnapshot> readUsers() {
