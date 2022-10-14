@@ -14,9 +14,6 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
   final first_name = TextEditingController();
   final last_name = TextEditingController();
-  // final username = TextEditingController();
-  // final email = TextEditingController();
-  // final password = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
