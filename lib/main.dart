@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/pages/homepage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
+import 'package:gre_dictionary_game/pages/view_users.dart';
 import 'package:gre_dictionary_game/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -18,12 +19,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/register/1",
+      initialRoute: "/users",
       routes: {
         "/home":(context)=>HomePage(),
         "/register":(context)=>RegisterPage1(),
         "/register/1":(context)=>RegisterPage1(),
         "/register/2":(context)=>RegisterPage1(),
+        "/users":(context)=>ViewUsers(),
       },
     );
   }

@@ -29,7 +29,7 @@ class ViewUsers extends StatefulWidget {
 
 class _ViewUsersState extends State<ViewUsers> {
 
-  final CollectionReference _users = FirebaseFirestore.instance.collection("users");
+  final CollectionReference _users = FirebaseFirestore.instance.collection("user");
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,8 @@ class _ViewUsersState extends State<ViewUsers> {
         stream: _users.snapshots(),
         builder: (context, AsyncSnapshot<QuerySnapshot> streamSnapshot) {
           if(streamSnapshot.hasData) {
+            print("Hello world this is amazing");
+            print(streamSnapshot.data!.docs.length);
             return ListView.builder(
               itemCount: streamSnapshot.data!.docs.length,
               itemBuilder: (context, index) {

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
 import '../utils/routes.dart';
-import '../utils/texttheme.dart';
+import '../utils/textt_heme.dart';
 
 class RegisterPage1 extends StatefulWidget {
   const RegisterPage1({Key? key}) : super(key: key);
