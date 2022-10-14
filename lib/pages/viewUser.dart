@@ -30,6 +30,7 @@ class ViewUsers extends StatefulWidget {
 class _ViewUsersState extends State<ViewUsers> {
 
   final CollectionReference _users = FirebaseFirestore.instance.collection("users");
+  // var first_name, last_name;
 
   @override
   Widget build(BuildContext context) {
