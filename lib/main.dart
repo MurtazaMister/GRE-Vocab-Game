@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/users",
+      initialRoute: "/register",
       routes: {
         "/home":(context)=>HomePage(),
         "/register":(context)=>RegisterPage1(),

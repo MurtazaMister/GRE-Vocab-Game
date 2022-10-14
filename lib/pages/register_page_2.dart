@@ -21,12 +21,14 @@ class _RegisterPage2State extends State<RegisterPage2> {
   Widget build(BuildContext context) {
     return Material(
       color: Colors.white,
-      child: Column(
-        children: [
-          Text(_firstname.text),
-          Text(_lastname.text),
-          Text("Welcome to my world")
-        ],
+      child: SafeArea(
+        child: Column(
+          children: [
+            Text(_firstname.text),
+            Text(_lastname.text),
+            Text("Welcome to my world")
+          ],
+        ),
       ),
     );
   }

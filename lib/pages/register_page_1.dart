@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:gre_dictionary_game/Services/firebase_crud.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
 import '../utils/routes.dart';
 import '../utils/textt_heme.dart';
@@ -18,7 +19,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  moveToRegisterPage2(BuildContext context){
+  moveToRegisterPage2(BuildContext context) async {
     if(_formKey.currentState!.validate()){
       Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage2(firstname: first_name, lastname: last_name,)));
     }
@@ -49,6 +50,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
               Container(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormField(
+                  controller: first_name,
                   validator: (value){
                     if(value!.isEmpty || value.length<2){
                       return "Invalid value for first name";
@@ -63,6 +65,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
               ),
               Container(
                 child: TextFormField(
+                  controller: last_name,
                   validator: (value){
                     if(value!.isEmpty || value.length<2){
                       return "Invalid value for last name";
