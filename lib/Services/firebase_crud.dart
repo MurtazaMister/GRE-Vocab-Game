@@ -3,7 +3,7 @@ import '../Models/response.dart';
 import '../Models/user.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-final CollectionReference _Collection = _firestore.collection('users');
+final CollectionReference _users = _firestore.collection('users');
 class FirebaseCrud {
 
   static Future<Response> addUser({
@@ -16,7 +16,7 @@ class FirebaseCrud {
 
     Response response = Response();
     DocumentReference documentReferencer =
-    _Collection.doc();
+    _users.doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "first_name": first_name,
@@ -43,10 +43,19 @@ class FirebaseCrud {
 
   static Stream<QuerySnapshot> readUsers() {
     CollectionReference userCollection =
-        _Collection;
+        _users;
 
     return userCollection.snapshots();
   }
+
+  // static Stream<QuerySnapshot> readUser({@required String username}) {
+  //   DocumentReference userReferencer =
+  //   _users.doc(username);
+  //
+  //   return userCollection.snapshots();
+  // }
+
+  //
 
   static Future<Response> updateUser({
     required String first_name,
@@ -57,7 +66,7 @@ class FirebaseCrud {
   }) async {
     Response response = Response();
     DocumentReference documentReferencer =
-    _Collection.doc(username);
+    _users.doc(username);
 
     Map<String, dynamic> data = <String, dynamic>{
       "first_name": first_name,
@@ -86,7 +95,7 @@ class FirebaseCrud {
   }) async {
     Response response = Response();
     DocumentReference documentReferencer =
-    _Collection.doc(username);
+    _users.doc(username);
 
     await documentReferencer
         .delete()
