@@ -63,10 +63,10 @@ class FirebaseCrud {
     }
   }
 
-  static Stream<QuerySnapshot> readUsers() {
-    CollectionReference userCollection = _users;
+  static Future<QuerySnapshot<Object?>> readUsers() {
+    CollectionReference userCollection = _firestore.collection("users");
 
-    return userCollection.snapshots();
+    return userCollection.get();
   }
 
   static bool verifyUsername(String username) {
@@ -91,34 +91,59 @@ class FirebaseCrud {
 
   //
 
-  static Future<Response> updateUser({
+  static Future<String?> updateUser({
     required String first_name,
     required String last_name,
     required String username,
     required String password,
     required String email,
   }) async {
-    Response response = Response();
     DocumentReference documentReferencer = _users.doc(username);
-
-    Map<String, dynamic> data = <String, dynamic>{
-      "first_name": first_name,
-      "last_name": last_name,
-      "username": username,
-      "password": password,
-      "email": email,
-    };
-
-    await documentReferencer.update(data).whenComplete(() {
-      response.code = 200;
-      response.message = "Successfully updated User";
-    }).catchError((e) {
-      response.code = 500;
-      response.message = e;
-    });
-
-    return response;
+    try {
+      documentReferencer.set({
+        "first_name": first_name,
+        "last_name": last_name,
+        "username": username,
+        "password": password,
+        "email": email,
+      });
+      return null;
+    } on Exception catch (err) {
+      return "error";
+    }
   }
+  // static Future<Response> updateUser({
+  //   required String first_name,
+  //   required String last_name,
+  //   required String username,
+  //   required String password,
+  //   required String email,
+  // }) async {
+  //   Response response = Response();
+  //   DocumentReference documentReferencer =
+  //   _users.doc(username);
+
+  //   Map<String, dynamic> data = <String, dynamic>{
+  //     "first_name": first_name,
+  //     "last_name": last_name,
+  //     "username" : username,
+  //     "password" : password,
+  //     "email" : email,
+  //   };
+
+  //   await documentReferencer
+  //       .update(data)
+  //       .whenComplete(() {
+  //     response.code = 200;
+  //     response.message = "Successfully updated User";
+  //   })
+  //       .catchError((e) {
+  //     response.code = 500;
+  //     response.message = e;
+  //   });
+
+  //   return response;
+  // }
 
   static Future<Response> deleteUser({required String username}) async {
     Response response = Response();
