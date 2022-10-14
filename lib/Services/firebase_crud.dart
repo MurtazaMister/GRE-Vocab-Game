@@ -41,7 +41,7 @@ class FirebaseCrud {
     return response;
   }
 
-  static Stream<QuerySnapshot> readUser() {
+  static Stream<QuerySnapshot> readUsers() {
     CollectionReference userCollection =
         _Collection;
 

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:gre_dictionary_game/pages/register_page_2.dart';
 import '../utils/routes.dart';
 import '../utils/texttheme.dart';
 
@@ -22,7 +23,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
 
   moveToRegisterPage2(BuildContext context){
     if(_formKey.currentState!.validate()){
-      Navigator.pushNamed(context, MyRoutes.registerPage2);
+      Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage2(firstname: first_name, lastname: last_name,)));
     }
   }
 
