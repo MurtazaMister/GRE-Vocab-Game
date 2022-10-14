@@ -4,8 +4,8 @@ import '../Models/user.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 final CollectionReference _users = _firestore.collection('users');
-class FirebaseCrud {
 
+class FirebaseCrud {
   // static Future<Response> addUser({
   //   required String first_name,
   //   required String last_name,
@@ -58,17 +58,28 @@ class FirebaseCrud {
         "email": email,
       });
       return null;
-    }
-    on Exception catch(err) {
+    } on Exception catch (err) {
       return "error";
     }
   }
 
   static Stream<QuerySnapshot> readUsers() {
-    CollectionReference userCollection =
-        _users;
+    CollectionReference userCollection = _users;
 
     return userCollection.snapshots();
+  }
+
+  static bool verifyUsername(String username) {
+    bool duplicateUsers = false;
+    Query<Map<String, dynamic>> users;
+    _firestore
+        .collection("users")
+        .where("username", isEqualTo: username)
+        .get()
+        .then((value) => {
+              if (value.size > 0) {duplicateUsers = true}
+            });
+    return duplicateUsers;
   }
 
   // static Stream<QuerySnapshot> readUser({@required String username}) {
@@ -88,24 +99,20 @@ class FirebaseCrud {
     required String email,
   }) async {
     Response response = Response();
-    DocumentReference documentReferencer =
-    _users.doc(username);
+    DocumentReference documentReferencer = _users.doc(username);
 
     Map<String, dynamic> data = <String, dynamic>{
       "first_name": first_name,
       "last_name": last_name,
-      "username" : username,
-      "password" : password,
-      "email" : email,
+      "username": username,
+      "password": password,
+      "email": email,
     };
 
-    await documentReferencer
-        .update(data)
-        .whenComplete(() {
+    await documentReferencer.update(data).whenComplete(() {
       response.code = 200;
       response.message = "Successfully updated User";
-    })
-        .catchError((e) {
+    }).catchError((e) {
       response.code = 500;
       response.message = e;
     });
@@ -113,20 +120,14 @@ class FirebaseCrud {
     return response;
   }
 
-  static Future<Response> deleteUser({
-    required String username
-  }) async {
+  static Future<Response> deleteUser({required String username}) async {
     Response response = Response();
-    DocumentReference documentReferencer =
-    _users.doc(username);
+    DocumentReference documentReferencer = _users.doc(username);
 
-    await documentReferencer
-        .delete()
-        .whenComplete((){
+    await documentReferencer.delete().whenComplete(() {
       response.code = 200;
       response.message = "Successfully Deleted User";
-    })
-        .catchError((e) {
+    }).catchError((e) {
       response.code = 500;
       response.message = e;
     });

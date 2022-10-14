@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/Services/firebase_crud.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
 import '../utils/routes.dart';
-import '../utils/textt_heme.dart';
+import '../utils/text_theme.dart';
 
 class RegisterPage1 extends StatefulWidget {
   const RegisterPage1({Key? key}) : super(key: key);
@@ -20,9 +20,9 @@ class _RegisterPage1State extends State<RegisterPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   moveToRegisterPage2(BuildContext context) async {
-    if(_formKey.currentState!.validate()){
-      Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage2(firstname: first_name, lastname: last_name,)));
-    }
+    // if(_formKey.currentState!.validate()){
+    //   Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage2(firstname: first_name, lastname: last_name,)));
+    // }
   }
 
   @override
