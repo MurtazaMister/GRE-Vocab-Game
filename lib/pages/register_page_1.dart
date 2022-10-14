@@ -20,9 +20,15 @@ class _RegisterPage1State extends State<RegisterPage1> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   moveToRegisterPage2(BuildContext context) async {
-    // if(_formKey.currentState!.validate()){
-    //   Navigator.push(context,MaterialPageRoute(builder: (context)=>RegisterPage2(firstname: first_name, lastname: last_name,)));
-    // }
+    if (_formKey.currentState!.validate()) {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => RegisterPage2(
+                    firstname: first_name,
+                    lastname: last_name,
+                  )));
+    }
   }
 
   @override
@@ -36,60 +42,63 @@ class _RegisterPage1State extends State<RegisterPage1> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Brace yourselves", style: AppTheme.defaultStyle().merge(TextStyle(
-                fontSize: 40,
-              ))),
-              Text("Boost up your vocabs while you play", style: AppTheme.defaultStyle().merge(TextStyle(
-                  fontSize: 19
-              )),),
-              Text("Register now", style: AppTheme.defaultStyle().merge(
-                  TextStyle(
-                      fontSize: 53
-                  )
-              ),),
+              Text("Brace yourselves",
+                  style: AppTheme.defaultStyle().merge(TextStyle(
+                    fontSize: 40,
+                  ))),
+              Text(
+                "Boost up your vocabs while you play",
+                style: AppTheme.defaultStyle().merge(TextStyle(fontSize: 19)),
+              ),
+              Text(
+                "Register now",
+                style: AppTheme.defaultStyle().merge(TextStyle(fontSize: 53)),
+              ),
               Container(
                 padding: EdgeInsets.only(top: 20),
                 child: TextFormField(
                   controller: first_name,
-                  validator: (value){
-                    if(value!.isEmpty || value.length<2){
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 2) {
                       return "Invalid value for first name";
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                      hintText: "Enter your first name",
-                      labelText: "First Name"
+                    hintText: "Enter your first name",
+                    labelText: "First Name",
                   ),
                 ),
               ),
               Container(
                 child: TextFormField(
                   controller: last_name,
-                  validator: (value){
-                    if(value!.isEmpty || value.length<2){
+                  validator: (value) {
+                    if (value!.isEmpty || value.length < 2) {
                       return "Invalid value for last name";
                     }
+                    return null;
                   },
                   decoration: InputDecoration(
-                      hintText: "Enter your last name",
-                      labelText: "Last Name"
+                    hintText: "Enter your last name",
+                    labelText: "Last Name",
                   ),
                 ),
               ),
               Container(
                 padding: EdgeInsets.only(top: 20),
                 child: ElevatedButton(
-                  onPressed: ()=>(moveToRegisterPage2(context)),
+                  onPressed: () => (moveToRegisterPage2(context)),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(Colors.green),
                   ),
-                  child: Text("Register Now", style: AppTheme.defaultStyle().merge(
-                      TextStyle(
-                          color: Colors.black87,
-                          fontSize: 15,
-                      )
-                  ),),
+                  child: Text(
+                    "Register Now",
+                    style: AppTheme.defaultStyle().merge(TextStyle(
+                      color: Colors.black87,
+                      fontSize: 15,
+                    )),
+                  ),
                 ),
               )
             ],
@@ -99,4 +108,3 @@ class _RegisterPage1State extends State<RegisterPage1> {
     );
   }
 }
-

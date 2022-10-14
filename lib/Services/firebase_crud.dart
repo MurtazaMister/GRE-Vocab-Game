@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/response.dart';
 import '../Models/user.dart';
@@ -63,23 +65,39 @@ class FirebaseCrud {
     }
   }
 
-  static Future<QuerySnapshot<Object?>> readUsers() {
-    CollectionReference userCollection = _firestore.collection("users");
+  // static Future<QuerySnapshot<Object?>> readUsers() {
+  //   CollectionReference userCollection = _firestore.collection("users");
 
-    return userCollection.get();
+  //   return userCollection.get();
+  // }
+
+  static Future<bool> verifyUsername(String username) async {
+    bool duplicateUsers = false;
+    try {
+      final value = await _firestore
+          .collection("users")
+          .where("username", isEqualTo: username)
+          .get();
+      if (value.size > 0) {
+        duplicateUsers = true;
+      }
+    } catch (e) {}
+    return duplicateUsers;
   }
 
-  static bool verifyUsername(String username) {
-    bool duplicateUsers = false;
-    Query<Map<String, dynamic>> users;
-    _firestore
-        .collection("users")
-        .where("username", isEqualTo: username)
-        .get()
-        .then((value) => {
-              if (value.size > 0) {duplicateUsers = true}
-            });
-    return duplicateUsers;
+  static Future<bool> verifyUser(String username, String password) async {
+    bool isValid = false;
+    try {
+      final value = await _firestore
+          .collection("users")
+          .where("username", isEqualTo: username)
+          .where("password", isEqualTo: password)
+          .get();
+      if (value.size > 0) {
+        isValid = true;
+      }
+    } catch (e) {}
+    return isValid;
   }
 
   // static Stream<QuerySnapshot> readUser({@required String username}) {
