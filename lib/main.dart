@@ -21,11 +21,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: "/register",
       routes: {
-        "/home":(context)=>HomePage(),
-        "/register":(context)=>RegisterPage1(),
-        "/register/1":(context)=>RegisterPage1(),
-        "/register/2":(context)=>RegisterPage1(),
-        "/users":(context)=>ViewUsers(),
+        "/home":(context)=>const HomePage(),
+        "/register":(context)=>const RegisterPage1(),
+        "/register/1":(context)=>const RegisterPage1(),
+        "/register/2":(context)=>const RegisterPage1(),
+        "/users":(context)=>const ViewUsers(),
       },
     );
   }
