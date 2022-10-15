@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
+import 'package:gre_dictionary_game/pages/add_vocab.dart';
 import 'package:gre_dictionary_game/pages/homepage.dart';
 import 'package:gre_dictionary_game/pages/loginpage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
+import 'package:gre_dictionary_game/pages/view_all_vocabs.dart';
 import 'package:gre_dictionary_game/pages/view_users.dart';
 import 'package:gre_dictionary_game/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -20,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/login",
+      initialRoute: "/vocabs",
       routes: {
         "/home": (context) => const HomePage(),
         "/login": (context) => const LoginPage(),
@@ -28,6 +30,8 @@ class MyApp extends StatelessWidget {
         "/register/1": (context) => const RegisterPage1(),
         "/register/2": (context) => const RegisterPage1(),
         "/users": (context) => const ViewUsers(),
+        "/vocabs": (context) => const ViewVocabs(),
+        "/addVocab": (context) => const AddVocab(),
       },
     );
   }

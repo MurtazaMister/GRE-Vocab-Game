@@ -6,10 +6,27 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _username=null;
+    Future<String> checkLogin() async {
+      dynamic id = await SessionManager().get("username");
+      return id;
+    }
+
+    checkLogin().then((value) {
+      if(value!=null){
+        _username = value;
+      }
+    }).whenComplete(() => {
+      if(_username==null){
+        Navigator.pushNamed(context, "/login")
+      }
+    });
+
     return Scaffold(
       drawer: Drawer(),
       appBar: AppBar(
         title: Text("GRE Dictionary game"),
+
       ),
     );
   }

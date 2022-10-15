@@ -25,7 +25,7 @@ class _LoginPageState extends State<LoginPage> {
     if (username.text.trim().length >= 3 &&
         password.text.trim().length >= 6 &&
         await FirebaseCrud.verifyUser(username.text, password.text)) {
-      // await SessionManager().set("username", username.text);
+      await SessionManager().set("username", username.text);
       Navigator.pushNamed(context, "/home");
     } else {
       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
@@ -100,7 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () => {loginUser(context)},
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        primary: Colors.green,
                         minimumSize: Size(150, 45),
                       ),
                       child: Text(
