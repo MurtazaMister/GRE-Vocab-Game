@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/pages/homepage.dart';
+import 'package:gre_dictionary_game/pages/loginpage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
 import 'package:gre_dictionary_game/pages/view_users.dart';
@@ -19,9 +20,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/register",
+      initialRoute: "/login",
       routes: {
         "/home": (context) => const HomePage(),
+        "/login": (context) => const LoginPage(),
         "/register": (context) => const RegisterPage1(),
         "/register/1": (context) => const RegisterPage1(),
         "/register/2": (context) => const RegisterPage1(),
