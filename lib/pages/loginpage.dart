@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:gre_dictionary_game/Services/firebase_crud.dart';
+import 'package:gre_dictionary_game/pages/register_page_1.dart';
 
 import '../utils/text_theme.dart';
 
@@ -105,6 +106,33 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Text(
                         "Login",
+                        style: AppTheme.defaultStyle().merge(TextStyle(
+                          color: Colors.black87,
+                          fontSize: 15,
+                        )),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Center(child: Text("Don't have an account with us?")),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Container(
+                    padding: EdgeInsets.only(top: 0),
+                    child: ElevatedButton(
+                      onPressed: () => {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => RegisterPage1(
+                  )))},
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.green,
+                        minimumSize: Size(150, 45),
+                      ),
+                      child: Text(
+                        "Register now",
                         style: AppTheme.defaultStyle().merge(TextStyle(
                           color: Colors.black87,
                           fontSize: 15,
