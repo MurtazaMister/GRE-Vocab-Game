@@ -1,3 +1,4 @@
+
 import "package:flutter/material.dart";
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -23,6 +24,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+/***
+ * Displaying all the Vocabs that are 
+ */
 class ViewVocabs extends StatefulWidget {
   const ViewVocabs({Key? key}) : super(key: key);
 
