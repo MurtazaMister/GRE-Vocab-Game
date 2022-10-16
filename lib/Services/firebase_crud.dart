@@ -1,22 +1,25 @@
 /*
-firebase_crud.dart is a file having Create, Read, and Update functionality for users
+  Gre Vocab Game
 */
 import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/response.dart';
 import '../Models/user.dart';
 
-// point the firebase instance
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-// point the collection(Table) named "users" 
 final CollectionReference _users = _firestore.collection('users');
 
-// class having static methods for add, verify, update, delete
+/// Defining the crud operation on user data
+///
+/// [addUser] add the newly registered user
+/// [verifyUsername] checks if the same username is already exist or not
+/// [verifyUser] used for user is exist for username and password to allow him/her to login
+/// [updateUser] used to change user profile
 class FirebaseCrud {
-  
-  /* static method that receive parameters for 'user'
-     make reference to the collection and add the user 
-  */ 
+  /// Add new user with id [username] in database
+  /// It points to the collection named 'users' in the database
+  /// and referencing the already existing user with username named [username]
+  /// and update the old data with passed parameters
   static Future<String?> addUser({
     required String first_name,
     required String last_name,
@@ -42,6 +45,7 @@ class FirebaseCrud {
       return "error";
     }
   }
+
   // checking if username already exist or not
   static Future<bool> verifyUsername(String username) async {
     bool duplicateUsers = false;
@@ -51,7 +55,7 @@ class FirebaseCrud {
           .collection("users")
           .where("username", isEqualTo: username)
           .get();
-      
+
       // if there exist any user then return true else return false
       if (value.size > 0) {
         duplicateUsers = true;
@@ -99,8 +103,8 @@ class FirebaseCrud {
       return "error";
     }
   }
- 
-  //TODO: check this 
+
+  //TODO: check this
   static Future<Response> deleteUser({required String username}) async {
     Response response = Response();
     DocumentReference documentReferencer = _users.doc(username);
