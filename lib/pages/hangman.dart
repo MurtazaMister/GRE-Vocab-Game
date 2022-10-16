@@ -88,12 +88,8 @@ class _HangmanState extends State<Hangman> {
 
     Future<Object> gettingRandomVocab() async {
       if (currentData == null) {
-        print(currentData);
-        print("In if------------------");
         return await FirebaseVocab.getRandomVocab();
       } else {
-        print(currentData);
-        print("In else================");
         return Future<Object>.delayed(
             Duration(milliseconds: 1), (() => currentData as Object));
       }
@@ -128,8 +124,10 @@ class _HangmanState extends State<Hangman> {
                       .trim();
 
                   toGuess = word;
-                  for (int i = 0; i < word.length; i++) {
-                    currentString += '_';
+                  if (currentString.length == 0) {
+                    for (int i = 0; i < word.length; i++) {
+                      currentString += '_';
+                    }
                   }
 
                   num len = word.length;
