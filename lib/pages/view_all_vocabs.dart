@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gre_dictionary_game/Models/Word.dart';
+import 'package:gre_dictionary_game/pages/add_vocab.dart';
 import 'package:gre_dictionary_game/pages/update_vocab.dart';
 
 Future main() async {
@@ -45,6 +46,14 @@ class _ViewVocabsState extends State<ViewVocabs> {
         o_example: example,
       )));
     
+  }
+   moveToAddVocab(BuildContext context) async {
+    
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+      builder: (context) => AddVocab(),
+      ));  
   }
 
   @override
