@@ -34,8 +34,6 @@ class _UpdateVocabState extends State<UpdateVocab> {
     synonymsC.text = synonyms1.toString(); 
     exampleC.text = example1.toString();
 
-    print("------------------");
-    print(word1); 
   }
 
   TextEditingController wordC = TextEditingController();
@@ -68,7 +66,6 @@ class _UpdateVocabState extends State<UpdateVocab> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                // initialValue: word1.toString(),
                 controller: wordC,
                 enabled: false,
                 validator: (value) {
@@ -83,7 +80,6 @@ class _UpdateVocabState extends State<UpdateVocab> {
               ),
 
               TextFormField(
-                // initialValue: definition1,
                 controller: definitionC,
                 validator: (value) {
                   if(value == null || value.isEmpty) {
