@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/pages/add_vocab.dart';
+import 'package:gre_dictionary_game/pages/hangman.dart';
 import 'package:gre_dictionary_game/pages/homepage.dart';
 import 'package:gre_dictionary_game/pages/loginpage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
