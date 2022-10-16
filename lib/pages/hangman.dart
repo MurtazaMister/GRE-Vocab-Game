@@ -11,10 +11,16 @@ class Hangman extends StatefulWidget {
 }
 
 class _HangmanState extends State<Hangman> {
+  Object? currentData = null;
+  List<Object> reportData = [];
+  String toGuess = "";
+  String currentString = "";
+  String currentImage = 'assets/hangman/step0.jpg';
+  int currentStep = 0;
+
   @override
   Widget build(BuildContext context) {
-    List<Object> reportData = [];
-
+    List<FloatingActionButton> alphabetButtonList = [];
     List<String> alphabets = [];
     for (int i = 0; i < 26; i++) {
       alphabets.add(String.fromCharCode(i + 65));
@@ -29,31 +35,68 @@ class _HangmanState extends State<Hangman> {
     }
 
     List<Text> getUnderscores(String word) {
+      print(currentString);
       List<Text> list = [];
-      for (var i in word.characters) {
-        if (i != ' ')
-          list.add(Text(
-            ' _ ',
-            style: TextStyle(fontSize: 40),
-          ));
-      }
-      return list;
-    }
-
-    List<FloatingActionButton> getFloatingActionButtons() {
-      List<FloatingActionButton> list = [];
-      for (var i in alphabets) {
-        list.add(FloatingActionButton(
-          onPressed: () => {},
-          heroTag: i,
-          child: Text(i),
+      for (var i in currentString.characters) {
+        list.add(Text(
+          ' ' + i + ' ',
+          style: TextStyle(fontSize: 40),
         ));
       }
       return list;
     }
 
+    onSelect(String alphabet) {
+      print("OnSelect runnign --------------");
+      List<int> available = [];
+      for (int i = 0; i < toGuess.length; i++) {
+        if (toGuess[i].toLowerCase() == alphabet.toLowerCase()) {
+          available.add(i);
+        }
+      }
+      if (available.length == 0) {
+        currentStep++;
+        currentImage = "assets/hangman/step" + currentStep.toString() + ".jpg";
+      } else {
+        for (int i = 0; i < available.length; i++) {
+          currentString = currentString.substring(0, available[i]) +
+              alphabet +
+              currentString.substring(available[i] + 1);
+        }
+        print("++++++++++++" + alphabet + " " + currentString);
+      }
+      // alphabetButtonList[alphabet.codeUnitAt(0) - 65] = FloatingActionButton(
+      //   onPressed: null,
+      //   heroTag: alphabet,
+      //   child: Text(alphabet),
+      // );
+      setState(() {});
+    }
+
+    List<FloatingActionButton> getFloatingActionButtons() {
+      for (var i in alphabets) {
+        alphabetButtonList.add(FloatingActionButton(
+          onPressed: () {
+            onSelect(i);
+          },
+          heroTag: i,
+          child: Text(i),
+        ));
+      }
+      return alphabetButtonList;
+    }
+
     Future<Object> gettingRandomVocab() async {
-      return await FirebaseVocab.getRandomVocab();
+      if (currentData == null) {
+        print(currentData);
+        print("In if------------------");
+        return await FirebaseVocab.getRandomVocab();
+      } else {
+        print(currentData);
+        print("In else================");
+        return Future<Object>.delayed(
+            Duration(milliseconds: 1), (() => currentData as Object));
+      }
     }
 
     return Material(
@@ -61,12 +104,13 @@ class _HangmanState extends State<Hangman> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset('assets/hangman/step0.jpg'),
+            Image.asset(currentImage),
             FutureBuilder(
               future: gettingRandomVocab(),
               builder: (BuildContext context, snapshot) {
                 List<Widget> children;
                 if (snapshot.hasData) {
+                  currentData = snapshot.data;
                   List<String> synonyms =
                       snapshot.data.toString().split(':')[1].split(',');
                   synonyms.removeLast();
@@ -77,8 +121,16 @@ class _HangmanState extends State<Hangman> {
                   String definition =
                       snapshot.data.toString().split(':')[2].split(',')[0];
 
-                  String word =
-                      snapshot.data.toString().split(':')[3].split(',')[0];
+                  String word = snapshot.data
+                      .toString()
+                      .split(':')[3]
+                      .split(',')[0]
+                      .trim();
+
+                  toGuess = word;
+                  for (int i = 0; i < word.length; i++) {
+                    currentString += '_';
+                  }
 
                   num len = word.length;
 
@@ -86,13 +138,13 @@ class _HangmanState extends State<Hangman> {
                     // Text(
                     //     '${snapshot.data} -------------- synonym->${synonyms} def->${definition} word->${word}'),
                     Wrap(
-                      children: getUnderscores(word),
+                      children: getUnderscores(currentString),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 20),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: getSynonyms(synonyms),
+                        children: [Text(word), ...getSynonyms(synonyms)],
                       ),
                     )
                   ];
