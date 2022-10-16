@@ -101,7 +101,10 @@ class _ViewVocabsState extends State<ViewVocabs> {
         child: Icon(Icons.add_circle),  
         backgroundColor: Colors.green,  
         foregroundColor: Colors.white,  
-        onPressed: () => {},  
+        onPressed: () => {
+          moveToAddVocab(context),
+
+        },  
       ),  
     );
   }
