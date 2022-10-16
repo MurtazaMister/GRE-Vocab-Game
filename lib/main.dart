@@ -11,6 +11,7 @@ import 'package:gre_dictionary_game/pages/view_users.dart';
 import 'package:gre_dictionary_game/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import './pages/hangman.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         "/vocabs": (context) => const ViewVocabs(),
         "/addVocab": (context) => const AddVocab(),
         "/hangman": (context) => const Hangman(),
+        "/tempHangman": (context) => const HangmanTemp(),
       },
     );
   }
