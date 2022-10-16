@@ -73,22 +73,28 @@ class _ViewVocabsState extends State<ViewVocabs> {
                 final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];
 
                 return Card(
+                  
                   margin: const EdgeInsets.all(10),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       ListTile(
                         title: Text(documentSnapshot['word']),
                         subtitle: Text(documentSnapshot['definition'].toString()),
                       ),
 
-                      FloatingActionButton(
-                        heroTag: documentSnapshot['word'],
-                        onPressed: () {
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10,bottom: 10),
+                        child: FloatingActionButton(
                           
-                          moveToUpdateVocab(context, documentSnapshot['word'].toString(), documentSnapshot['definition'].toString(), documentSnapshot['synonyms'] as List<dynamic>, documentSnapshot['example'].toString());
-                        },
-                        backgroundColor: Colors.green,
-                        child: const Icon(Icons.edit),
+                          heroTag: documentSnapshot['word'],
+                          onPressed: () {
+                            
+                            moveToUpdateVocab(context, documentSnapshot['word'].toString(), documentSnapshot['definition'].toString(), documentSnapshot['synonyms'] as List<dynamic>, documentSnapshot['example'].toString());
+                          },
+                          backgroundColor: Colors.green,
+                          child: const Icon(Icons.edit),
+                        ),
                       )
                   ],)
                   
@@ -102,6 +108,7 @@ class _ViewVocabsState extends State<ViewVocabs> {
         },
       ),
         floatingActionButton: FloatingActionButton(  
+          
         child: Icon(Icons.add_circle),  
         backgroundColor: Colors.green,  
         foregroundColor: Colors.white,  

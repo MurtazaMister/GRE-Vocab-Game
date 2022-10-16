@@ -64,8 +64,9 @@ class FirebaseCrud {
     return duplicateUsers;
   }
 
-  static Future<bool> verifyUser(String username, String password) async {
-    bool isValid = false;
+  static Future<Map<String,dynamic>> verifyUser(String username, String password) async {
+    Map<String,dynamic> user=Map();
+    user["isValid"] = false;
     try {
       final value = await _firestore
           .collection("users")
@@ -73,10 +74,17 @@ class FirebaseCrud {
           .where("password", isEqualTo: password)
           .get();
       if (value.size > 0) {
-        isValid = true;
+        user["isValid"] = true;
+        value.docs.forEach((doc){
+          user["username"] = doc["username"];
+          user["first_name"] = doc["first_name"];
+          user["last_name"] = doc["last_name"];
+          user["password"] = doc["password"];
+          user["email"] = doc["email"];
+        });
       }
     } catch (e) {}
-    return isValid;
+    return user;
   }
 
   // update user functionality
@@ -88,10 +96,10 @@ class FirebaseCrud {
     required String email,
   }) async {
     // Referencing the document having 'username' = username
-    DocumentReference documentReferencer = _users.doc(username);
+    DocumentReference documentReferencer = await _users.doc(username);
     try {
       // Update the data for already existing user
-      documentReferencer.set({
+      await documentReferencer.set({
         "first_name": first_name,
         "last_name": last_name,
         "username": username,

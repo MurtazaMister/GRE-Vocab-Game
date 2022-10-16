@@ -24,10 +24,16 @@ class _LoginPageState extends State<LoginPage> {
 
   loginUser(BuildContext context) async {
     if (username.text.trim().length >= 3 &&
-        password.text.trim().length >= 6 &&
-        await FirebaseCrud.verifyUser(username.text, password.text)) {
-      await SessionManager().set("username", username.text);
-      Navigator.pushNamed(context, "/home");
+        password.text.trim().length >= 6 ) {
+        Map<String,dynamic> user= await FirebaseCrud.verifyUser(username.text, password.text);
+        if(user["isValid"]){
+          await SessionManager().set("username", user["username"]);
+          await SessionManager().set("first_name", user["first_name"]);
+          await SessionManager().set("last_name", user["last_name"]);
+          await SessionManager().set("email", user["email"]);
+          await SessionManager().set("password", password.text.trim());
+          Navigator.pushNamed(context, "/home");
+        }
     } else {
       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
         backgroundColor: Colors.green[100],
@@ -122,11 +128,15 @@ class _LoginPageState extends State<LoginPage> {
                   child: Container(
                     padding: EdgeInsets.only(top: 0),
                     child: ElevatedButton(
-                      onPressed: () => {Navigator.push(
+                      onPressed: () {
+                        
+                        
+                        
+                        Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => RegisterPage1(
-                  )))},
+                  )));},
                       style: ElevatedButton.styleFrom(
                         primary: Colors.green,
                         minimumSize: Size(150, 45),

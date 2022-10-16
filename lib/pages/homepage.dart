@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:gre_dictionary_game/pages/hangman.dart';
+import 'package:gre_dictionary_game/pages/update_user.dart';
 import 'package:gre_dictionary_game/pages/view_all_vocabs.dart';
 
 import '../utils/text_theme.dart';
@@ -29,6 +30,20 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("GRE Dictionary game"),
+        actions: [
+          FloatingActionButton(onPressed: () async {
+
+            String username = await SessionManager().get("username");
+            String email = await SessionManager().get("email");
+            String password = await SessionManager().get("password").toString();
+            String first_name = await SessionManager().get("first_name");
+            String last_name = await SessionManager().get("last_name");
+
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateUser(username: username, password: password, first_name: first_name, last_name: last_name, email: email)));
+          },
+          elevation: 0,
+          child: Icon(Icons.face),)
+        ],
       ),
       body: Container(
         child: Padding(
