@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/pages/add_vocab.dart';
+import 'package:gre_dictionary_game/pages/hangman.dart';
 import 'package:gre_dictionary_game/pages/homepage.dart';
 import 'package:gre_dictionary_game/pages/loginpage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: "/vocabs",
+      initialRoute: "/hangman",
       routes: {
         "/home": (context) => const HomePage(),
         "/login": (context) => const LoginPage(),
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
         "/users": (context) => const ViewUsers(),
         "/vocabs": (context) => const ViewVocabs(),
         "/addVocab": (context) => const AddVocab(),
+        "/hangman": (context) => const Hangman(),
       },
     );
   }
