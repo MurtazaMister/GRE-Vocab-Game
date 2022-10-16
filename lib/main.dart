@@ -36,7 +36,6 @@ class MyApp extends StatelessWidget {
         "/vocabs": (context) => const ViewVocabs(),
         "/addVocab": (context) => const AddVocab(),
         "/hangman": (context) => const Hangman(),
-        "/result": (context) => const Result(),
       },
     );
   }
