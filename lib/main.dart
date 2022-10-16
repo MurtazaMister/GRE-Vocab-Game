@@ -5,7 +5,6 @@ import 'package:gre_dictionary_game/pages/homepage.dart';
 import 'package:gre_dictionary_game/pages/loginpage.dart';
 import 'package:gre_dictionary_game/pages/register_page_1.dart';
 import 'package:gre_dictionary_game/pages/register_page_2.dart';
-import 'package:gre_dictionary_game/pages/tempGame.dart';
 import 'package:gre_dictionary_game/pages/view_all_vocabs.dart';
 import 'package:gre_dictionary_game/pages/view_users.dart';
 import 'package:gre_dictionary_game/utils/routes.dart';
@@ -36,7 +35,6 @@ class MyApp extends StatelessWidget {
         "/vocabs": (context) => const ViewVocabs(),
         "/addVocab": (context) => const AddVocab(),
         "/hangman": (context) => const Hangman(),
-        "/tempHangman": (context) => const HangmanTemp(),
       },
     );
   }
