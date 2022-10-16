@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/response.dart';
 import '../Models/user.dart';
@@ -18,7 +17,8 @@ class FirebaseCrud {
   }) async {
     CollectionReference users = _firestore.collection("users");
     try {
-      users.add({
+      DocumentReference dr = users.doc(username);
+      dr.set({
         "first_name": first_name,
         "last_name": last_name,
         "username": username,
@@ -30,12 +30,6 @@ class FirebaseCrud {
       return "error";
     }
   }
-
-  // static Future<QuerySnapshot<Object?>> readUsers() {
-  //   CollectionReference userCollection = _firestore.collection("users");
-
-  //   return userCollection.get();
-  // }
 
   static Future<bool> verifyUsername(String username) async {
     bool duplicateUsers = false;
@@ -96,39 +90,8 @@ class FirebaseCrud {
       return "error";
     }
   }
-  // static Future<Response> updateUser({
-  //   required String first_name,
-  //   required String last_name,
-  //   required String username,
-  //   required String password,
-  //   required String email,
-  // }) async {
-  //   Response response = Response();
-  //   DocumentReference documentReferencer =
-  //   _users.doc(username);
-
-  //   Map<String, dynamic> data = <String, dynamic>{
-  //     "first_name": first_name,
-  //     "last_name": last_name,
-  //     "username" : username,
-  //     "password" : password,
-  //     "email" : email,
-  //   };
-
-  //   await documentReferencer
-  //       .update(data)
-  //       .whenComplete(() {
-  //     response.code = 200;
-  //     response.message = "Successfully updated User";
-  //   })
-  //       .catchError((e) {
-  //     response.code = 500;
-  //     response.message = e;
-  //   });
-
-  //   return response;
-  // }
-
+ 
+  //TODO: check this 
   static Future<Response> deleteUser({required String username}) async {
     Response response = Response();
     DocumentReference documentReferencer = _users.doc(username);
