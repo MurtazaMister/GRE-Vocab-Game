@@ -12,7 +12,6 @@ class Hangman extends StatefulWidget {
 
 class _HangmanState extends State<Hangman> {
   Object? currentData = null;
-  List<Object> reportData = [];
   String toGuess = "";
   String currentString = "";
   String currentImage = 'assets/hangman/step0.jpg';
@@ -21,12 +20,20 @@ class _HangmanState extends State<Hangman> {
 
   TextStyle synonymStyle = new TextStyle(fontSize: 20);
 
+  List<Object> reportData = [];
+  num correctGuess = 0;
+  bool isHintUsed = false;
+
   @override
   Widget build(BuildContext context) {
     List<Padding> alphabetButtonList = [];
     List<String> alphabets = [];
     for (int i = 0; i < 26; i++) {
       alphabets.add(String.fromCharCode(i + 65));
+    }
+
+    Text getHint(String definition) {
+      return Text(definition);
     }
 
     List<Text> getSynonyms(List<String> synonyms) {
@@ -64,10 +71,6 @@ class _HangmanState extends State<Hangman> {
     }
 
     onSelect(String alphabet) {
-      if (toGuess == currentString) {
-        disabledAlphabets = List.filled(26, 1);
-        return;
-      }
       List<int> available = [];
       for (int i = 0; i < toGuess.length; i++) {
         if (toGuess[i].toLowerCase() == alphabet.toLowerCase()) {
@@ -82,6 +85,7 @@ class _HangmanState extends State<Hangman> {
         }
         currentImage = "assets/hangman/step" + currentStep.toString() + ".jpg";
       } else {
+        correctGuess++;
         for (int i = 0; i < available.length; i++) {
           currentString = currentString.substring(0, available[i]) +
               alphabet +
@@ -90,6 +94,18 @@ class _HangmanState extends State<Hangman> {
       }
 
       disabledAlphabets[alphabet.codeUnitAt(0) - 65] = 1;
+      if (toGuess == currentString) {
+        disabledAlphabets = List.filled(26, 1);
+        reportData.add({
+          "word": toGuess,
+          "correctGuess": correctGuess,
+          "incorrectGuess": currentStep,
+          "isHintUsed": isHintUsed,
+          "score": (7 - currentStep) * 100 - 25 * currentStep,
+        });
+
+        print(reportData);
+      }
       setState(() {});
     }
 
@@ -183,10 +199,21 @@ class _HangmanState extends State<Hangman> {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: 20, vertical: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: getSynonyms(synonyms),
-                          ),
+                          child: Wrap(children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: getSynonyms(synonyms),
+                            ),
+                            !isHintUsed
+                                ? FloatingActionButton.small(
+                                    onPressed: () {
+                                      isHintUsed = true;
+                                      setState(() {});
+                                    },
+                                    child: Icon(Icons.thunderstorm),
+                                  )
+                                : getHint(definition),
+                          ]),
                         )
                       ],
                     )
@@ -227,17 +254,28 @@ class _HangmanState extends State<Hangman> {
             Wrap(
               children: [
                 ...getFloatingActionButtons(),
-                ElevatedButton(
-                    onPressed: () {
-                      currentData = null;
-                      toGuess = "";
-                      currentString = "";
-                      currentStep = 0;
-                      disabledAlphabets = List.filled(26, 0);
-                      currentImage = 'assets/hangman/step0.jpg';
-                      setState(() {});
-                    },
-                    child: Text("Next"))
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pushNamed(context, "/result");
+                        },
+                        child: Text("End game")),
+                    ElevatedButton(
+                        onPressed: () {
+                          currentData = null;
+                          toGuess = "";
+                          currentString = "";
+                          currentStep = 0;
+                          disabledAlphabets = List.filled(26, 0);
+                          currentImage = 'assets/hangman/step0.jpg';
+                          isHintUsed = false;
+                          setState(() {});
+                        },
+                        child: Text("Next")),
+                  ],
+                )
               ],
             ),
           ],
