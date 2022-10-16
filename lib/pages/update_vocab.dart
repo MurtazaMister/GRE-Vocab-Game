@@ -47,15 +47,13 @@ class _UpdateVocabState extends State<UpdateVocab> {
 
     
    updateVocabFunction(BuildContext context) async {
-    List<String> allSynonyms = synonymsC.text.split(",");
+    List<String> allSynonyms = synonymsC.text.split(",").map((e) => e.trim()).toList();
 
     await FirebaseVocab.updateVocab(word: wordC.text, definition: definitionC.text, synonyms: allSynonyms, example: exampleC.text);
 
-    wordC.clear();
-    definitionC.clear();
-    synonymsC.clear();
-    exampleC.clear();
-
+    setState(() {
+      
+    });
    }
 
   @override
@@ -72,6 +70,7 @@ class _UpdateVocabState extends State<UpdateVocab> {
               TextFormField(
                 // initialValue: word1.toString(),
                 controller: wordC,
+                enabled: false,
                 validator: (value) {
                   if(value == null || value.isEmpty) {
                     return "please enter a valid value";
