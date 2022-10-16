@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/Services/firebase_vocab.dart';
+import 'package:gre_dictionary_game/pages/result.dart';
 
 class Hangman extends StatefulWidget {
   const Hangman({super.key});
@@ -53,7 +53,7 @@ class _HangmanState extends State<Hangman> {
     }
 
     List<Text> getUnderscores(String word) {
-      print(currentString);
+      // print(currentString);
       List<Text> list = [];
       for (var i in currentString.characters) {
         list.add(Text(
@@ -149,7 +149,11 @@ class _HangmanState extends State<Hangman> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(currentImage),
+            SizedBox(
+              child: Image.asset(currentImage),
+              width: 250,
+              height: 250,
+            ),
             currentStep >= 7
                 ? Text(
                     "Game over",
@@ -159,9 +163,17 @@ class _HangmanState extends State<Hangman> {
             FutureBuilder(
               future: gettingRandomVocab(),
               builder: (BuildContext context, snapshot) {
+                print("------------ sanpshot dt -----------------");
+                print(snapshot.data);
                 List<Widget> children;
                 if (snapshot.hasData) {
-                  currentData = snapshot.data;
+                  String word = snapshot.data
+                      .toString()
+                      .split(':')[3]
+                      .split(',')[0]
+                      .trim()
+                      .toUpperCase();
+
                   List<String> synonyms =
                       snapshot.data.toString().split(':')[1].split(',');
                   synonyms.removeLast();
@@ -172,18 +184,18 @@ class _HangmanState extends State<Hangman> {
                   String definition =
                       snapshot.data.toString().split(':')[2].split(',')[0];
 
-                  String word = snapshot.data
-                      .toString()
-                      .split(':')[3]
-                      .split(',')[0]
-                      .trim()
-                      .toUpperCase();
-
                   toGuess = word;
-                  if (currentString.length == 0) {
+                  print(word);
+                  print(currentString.length);
+                  if (correctGuess + currentStep == 0) {
+                    print("@@@@@@@@@@@@@@@@@@@");
+                    print(word);
+                    currentString = '';
                     for (int i = 0; i < word.length; i++) {
                       currentString += '_';
                     }
+                    currentData = snapshot.data;
+                    print(currentString);
                   }
 
                   num len = word.length;
@@ -259,7 +271,12 @@ class _HangmanState extends State<Hangman> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, "/result");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Result(
+                                        reportData: reportData,
+                                      )));
                         },
                         child: Text("End game")),
                     ElevatedButton(
@@ -268,9 +285,12 @@ class _HangmanState extends State<Hangman> {
                           toGuess = "";
                           currentString = "";
                           currentStep = 0;
+                          correctGuess = 0;
                           disabledAlphabets = List.filled(26, 0);
                           currentImage = 'assets/hangman/step0.jpg';
                           isHintUsed = false;
+                          print("****************");
+                          print(currentString);
                           setState(() {});
                         },
                         child: Text("Next")),

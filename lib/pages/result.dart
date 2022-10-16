@@ -1,7 +1,10 @@
 import "package:flutter/material.dart";
 
 class Result extends StatelessWidget {
-  const Result({super.key});
+  Object reportData = {};
+  Result({super.key, @required reportData}) {
+    this.reportData = reportData;
+  }
 
   @override
   Widget build(BuildContext context) {
