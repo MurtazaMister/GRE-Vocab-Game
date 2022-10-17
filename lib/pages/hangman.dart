@@ -97,7 +97,11 @@ class _HangmanState extends State<Hangman> {
 
     /// Maintain all the changes after every alphabet click
     ///
-    ///
+    ///After a click on any alphabet,
+    ///It maintains a available list that stores the indexs of alphabet on the toGuess word
+    ///if available size > 0 : replace the underscore with the alphabet, increament correctGuess, disable alphabet
+    ///else: increament currentStep
+    ///checks for the success and failure condition
     onSelect(String alphabet) {
       List<int> available = [];
       for (int i = 0; i < toGuess.length; i++) {
@@ -137,6 +141,7 @@ class _HangmanState extends State<Hangman> {
       setState(() {});
     }
 
+    /// Create button for every alphabet
     List<Padding> getFloatingActionButtons() {
       for (int i = 0; i < 26; i++) {
         alphabetButtonList.add(Padding(
@@ -164,6 +169,9 @@ class _HangmanState extends State<Hangman> {
       return alphabetButtonList;
     }
 
+    /// Get the random vocab for the game
+    /// 
+    /// Call the method of firebase_vocab for random vocab
     Future<Object> gettingRandomVocab() async {
       if (currentData == null) {
         return await FirebaseVocab.getRandomVocab();
