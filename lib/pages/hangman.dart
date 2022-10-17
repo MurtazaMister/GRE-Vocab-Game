@@ -25,7 +25,10 @@ class Hangman extends StatefulWidget {
 /// [toGuess] has a word to be guessed
 /// [currentString] maintains the correct guess by user
 /// [currentImage] is the hangman image for every stage
-///
+/// [currentStep] counting the incorrect guess so that we find our terminating condition after a boundary value
+/// [disabledAlphabets] for make an button disable after a correct guess
+/// [isHintUsed] checks if the hint is used for the word or not
+/// [reportData] has the all the report of the game
 class _HangmanState extends State<Hangman> {
   Object? currentData = null;
   String toGuess = "";
@@ -48,6 +51,7 @@ class _HangmanState extends State<Hangman> {
       alphabets.add(String.fromCharCode(i + 65));
     }
 
+    /// return the definition
     Text getHint(String definition) {
       return Text(definition);
     }
@@ -68,6 +72,11 @@ class _HangmanState extends State<Hangman> {
       return list;
     }
 
+    /// Initiailze a game with blank string
+    /// Maintains the string after each and every guess
+    /// If success make color of string green
+    /// If Failure make color of string red
+    /// otherwise black
     List<Text> getUnderscores(String word) {
       // print(currentString);
       List<Text> list = [];
@@ -86,6 +95,9 @@ class _HangmanState extends State<Hangman> {
       return list;
     }
 
+    /// Maintain all the changes after every alphabet click
+    ///
+    ///
     onSelect(String alphabet) {
       List<int> available = [];
       for (int i = 0; i < toGuess.length; i++) {
