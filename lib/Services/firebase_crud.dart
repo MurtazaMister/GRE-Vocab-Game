@@ -46,7 +46,11 @@ class FirebaseCrud {
     }
   }
 
-  // checking if username already exist or not
+  /// check for the already exist user with username equal to [username]
+  ///
+  /// Return true if it is already exist
+  /// Otherwie return false
+  /// So not allowing the new user with existing username
   static Future<bool> verifyUsername(String username) async {
     bool duplicateUsers = false;
     try {
@@ -64,8 +68,13 @@ class FirebaseCrud {
     return duplicateUsers;
   }
 
-  static Future<Map<String,dynamic>> verifyUser(String username, String password) async {
-    Map<String,dynamic> user=Map();
+  /// Confirming the user with [username] and [password] in the database to get logged In
+  ///
+  /// Get the user if it is exist
+  /// pack data into a object and return a [Future] for user details
+  static Future<Map<String, dynamic>> verifyUser(
+      String username, String password) async {
+    Map<String, dynamic> user = Map();
     user["isValid"] = false;
     try {
       final value = await _firestore
@@ -75,7 +84,7 @@ class FirebaseCrud {
           .get();
       if (value.size > 0) {
         user["isValid"] = true;
-        value.docs.forEach((doc){
+        value.docs.forEach((doc) {
           user["username"] = doc["username"];
           user["first_name"] = doc["first_name"];
           user["last_name"] = doc["last_name"];
@@ -87,7 +96,10 @@ class FirebaseCrud {
     return user;
   }
 
-  // update user functionality
+  /// Change the user information
+  ///
+  /// By the new information given by user
+  /// Note that [username] can not be change
   static Future<String?> updateUser({
     required String first_name,
     required String last_name,

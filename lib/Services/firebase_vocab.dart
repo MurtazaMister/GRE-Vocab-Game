@@ -11,21 +11,27 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../Models/vocab.dart';
 import 'dart:math';
 
-// point to the firebase instance 
+// point to the firebase instance
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 // Reference to the collection named "vocab"
 final CollectionReference _vocab = _firestore.collection('vocab');
 
-// class FireBaseVocab having above three functionalities
+/// Manage the crud operation on vocab collection
+///
+/// [addVocab] add the new vocab
+/// [updateVocab] for some change like add or delete synonym, change example
+/// [getRandomVocab] selecting any vocab from the vocab collections for the hangman game
 class FirebaseVocab {
-  // Add vocab in vocab collection
+  /// Add the new vocab having id equal to [word]
+  ///
+  /// points to the document reference through [word] and add the vocab
+  /// with given data
   static Future<String?> addVocab(
       {required String word,
       required String definition,
       required List<String> synonyms,
       required String example}) async {
-    
-    // Create the document with "id" = word  
+    // Create the document with "id" = word
     DocumentReference documentReference = _vocab.doc(word);
     try {
       // Add data to the document
@@ -41,14 +47,13 @@ class FirebaseVocab {
     }
   }
 
-  // Update Vocab
+  /// Update the already existing vocab having id equal to [word]
   static Future<String?> updateVocab(
       {required String word,
       required String definition,
       required List<String> synonyms,
       required String example}) async {
-    
-    //Reference to already existing word with "id": word 
+    //Reference to already existing word with "id": word
     DocumentReference documentReference = _vocab.doc(word);
     try {
       // update the vocab with new data
@@ -64,7 +69,11 @@ class FirebaseVocab {
     }
   }
 
-  // Get Random vocab for the hangman game 
+  /// Get Random vocab for the hangman game
+  ///
+  /// get the snapshot of all vocabs and select one randomly
+  /// using [Random] function of dart:math library
+  /// return the object of the vocab to the caller
   static Object getRandomVocab() async {
     QuerySnapshot qs = await _vocab.get();
     List<DocumentSnapshot> listedQS = qs.docs; //listed documents
