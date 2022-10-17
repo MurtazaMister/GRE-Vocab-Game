@@ -1,3 +1,7 @@
+/**
+ * Gre Vocab Game: hangman
+ */
+
 import 'dart:convert';
 import "package:flutter/material.dart";
 import 'package:gre_dictionary_game/Services/firebase_vocab.dart';
@@ -10,6 +14,18 @@ class Hangman extends StatefulWidget {
   State<Hangman> createState() => _HangmanState();
 }
 
+/// Hangman game for vocab prctice
+///
+/// Each Time a random vocab comes from the database
+/// Player has to guess the correct word untill the man hangged
+/// Player has limited chance for incorrect guess
+/// Data is maintained for every correct and incorrect number of guess
+///
+/// [currentData] has snapshot of current vocab
+/// [toGuess] has a word to be guessed
+/// [currentString] maintains the correct guess by user
+/// [currentImage] is the hangman image for every stage
+///
 class _HangmanState extends State<Hangman> {
   Object? currentData = null;
   String toGuess = "";
