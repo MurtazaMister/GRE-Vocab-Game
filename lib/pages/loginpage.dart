@@ -22,6 +22,7 @@ class _LoginPageState extends State<LoginPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
+  /// This function will be used to log in the user, it will validate on username and password for the basic validations and then check if the entry having the provided username and password exists, and if yes, the user is granted the access to the application
   loginUser(BuildContext context) async {
     if (username.text.trim().length >= 3 &&
         password.text.trim().length >= 6 ) {

@@ -7,6 +7,8 @@ import 'package:gre_dictionary_game/pages/update_vocab.dart';
 class ViewVocab extends StatelessWidget {
   String word="", definition="", example="";
   List<dynamic> synonyms = [];
+  
+  /// Constructor for the stateless widget ViewVocab which accepts the parameters of a vocab - [word], [definition], [synonyms], [example] to display it on its own dedicated page
   ViewVocab({Key? key, required String word, required String definition, required List<dynamic> synonyms, required String example}) : super(key: key){
     this.word = word;
     this.synonyms = synonyms;
@@ -14,6 +16,7 @@ class ViewVocab extends StatelessWidget {
     this.example = example;
   }
 
+  /// This method is used to return the [synonyms] in a formatted manner to be displayed on the dedicated page of the vocab
   List<Text> getSynonyms(List<dynamic> synonyms){
     List<Text> list = [];
     for(var synonym in synonyms){
@@ -25,8 +28,10 @@ class ViewVocab extends StatelessWidget {
     return list;
   }
 
+  /// This function will be used to redirect to the edit vocab page so that users can add new information or remove unnecessary info about the vocab. This function accepts all the arguments for the vocab such as - [word], [definition], [synonyms], and [example]
   moveToUpdateVocab(BuildContext context, String word, String definition, List<dynamic> synonyms, String example) async {
     
+    // Routing to the update vocab page
     Navigator.push(
       context,
       MaterialPageRoute(

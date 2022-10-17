@@ -5,7 +5,9 @@ import '../utils/text_theme.dart';
 import '../Services/firebase_crud.dart';
 
 class RegisterPage2 extends StatefulWidget {
-  var _firstname, _lastname;
+  var _firstname, _lastname; // firstname and lastname received from previous page - registration_page_1
+
+  /// Constructor of the stateful widget - RegisterPage2 which accepts the values taken from the user on the previous page of registration - [firstname] and [lastname]
   RegisterPage2({Key? key, @required firstname, @required lastname})
       : super(key: key) {
     _firstname = firstname;
@@ -21,12 +23,13 @@ class _RegisterPage2State extends State<RegisterPage2> {
   var _firstname, _lastname;
   String? usernameError;
 
-  TextEditingController _email = TextEditingController();
-  TextEditingController _username = TextEditingController();
-  TextEditingController _password = TextEditingController();
+  TextEditingController _email = TextEditingController(); // Email control field
+  TextEditingController _username = TextEditingController(); // username control field
+  TextEditingController _password = TextEditingController(); // Password control field
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // A key associated with the form to perform validation
 
+  /// Adds the user initialized with all the details filled in the registration form into the Database and also adds these details to the current user session
   addUserFunction(BuildContext context) async {
     setState(() {
       usernameError = null;
@@ -48,10 +51,10 @@ class _RegisterPage2State extends State<RegisterPage2> {
         await SessionManager().set("email", _email.text);
         await SessionManager().set("password", _password.text);
 
-        Navigator.pushNamed(context, "/home");
+        Navigator.pushNamed(context, "/home"); // redirecting the user to home page once he/she has successfully registered
       } else {
         setState(() {
-          usernameError = "Username already taken";
+          usernameError = "Username already taken"; // If the username is already taken, then the user won't be able to move further
         });
       }
     }
