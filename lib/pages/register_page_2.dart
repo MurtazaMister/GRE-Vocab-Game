@@ -43,6 +43,10 @@ class _RegisterPage2State extends State<RegisterPage2> {
             email: _email.text);
 
         await SessionManager().set("username", _username.text);
+        await SessionManager().set("first_name", _firstname.text);
+        await SessionManager().set("last_name", _lastname.text);
+        await SessionManager().set("email", _email.text);
+        await SessionManager().set("password", _password.text);
 
         Navigator.pushNamed(context, "/home");
       } else {

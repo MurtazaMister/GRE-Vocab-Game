@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:gre_dictionary_game/Models/Word.dart';
 import 'package:gre_dictionary_game/pages/add_vocab.dart';
 import 'package:gre_dictionary_game/pages/update_vocab.dart';
+import 'package:gre_dictionary_game/pages/view_vocab.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -75,28 +76,33 @@ class _ViewVocabsState extends State<ViewVocabs> {
                 return Card(
                   
                   margin: const EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      ListTile(
-                        title: Text(documentSnapshot['word']),
-                        subtitle: Text(documentSnapshot['definition'].toString()),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(right: 10,bottom: 10),
-                        child: FloatingActionButton(
-                          
-                          heroTag: documentSnapshot['word'],
-                          onPressed: () {
-                            
-                            moveToUpdateVocab(context, documentSnapshot['word'].toString(), documentSnapshot['definition'].toString(), documentSnapshot['synonyms'] as List<dynamic>, documentSnapshot['example'].toString());
-                          },
-                          backgroundColor: Colors.green,
-                          child: const Icon(Icons.edit),
+                  child: InkWell(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>ViewVocab(word: documentSnapshot['word'].toString(), definition: documentSnapshot['definition'].toString(), synonyms: documentSnapshot['synonyms'] as List<dynamic>, example: documentSnapshot['example'].toString())));
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        ListTile(
+                          title: Text(documentSnapshot['word']),
+                          subtitle: Text(documentSnapshot['definition'].toString()),
                         ),
-                      )
-                  ],)
+                  
+                        // Padding(
+                        //   padding: const EdgeInsets.only(right: 10,bottom: 10),
+                        //   child: FloatingActionButton(
+                            
+                        //     heroTag: documentSnapshot['word'],
+                        //     onPressed: () {
+                              
+                        //       moveToUpdateVocab(context, documentSnapshot['word'].toString(), documentSnapshot['definition'].toString(), documentSnapshot['synonyms'] as List<dynamic>, documentSnapshot['example'].toString());
+                        //     },
+                        //     backgroundColor: Colors.green,
+                        //     child: const Icon(Icons.edit),
+                        //   ),
+                        // )
+                    ],),
+                  )
                   
                 );
               },
