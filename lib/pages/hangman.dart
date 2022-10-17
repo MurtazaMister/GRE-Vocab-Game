@@ -141,7 +141,7 @@ class _HangmanState extends State<Hangman> {
       setState(() {});
     }
 
-    /// Create button for every alphabet
+    /// Creates a button for every alphabet, so when clicked, can be matched with letters in the given string.
     List<Padding> getFloatingActionButtons() {
       for (int i = 0; i < 26; i++) {
         alphabetButtonList.add(Padding(

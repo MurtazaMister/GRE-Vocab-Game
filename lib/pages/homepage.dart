@@ -12,6 +12,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _username=null;
+
+    /// A function to check if a user is logged in and fit for accessing this page or else user will be redirected to login page
     Future<String> checkLogin() async {
       dynamic id = await SessionManager().get("username");
       return id;

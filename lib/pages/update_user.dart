@@ -9,6 +9,8 @@ import '../utils/text_theme.dart';
 
 class UpdateUser extends StatefulWidget {
     String? username, password, first_name, last_name,email;
+
+   /// The constructor of UpdateUser accepts all the parameters related to the user - [username], [password], [first_name], [last_name], [email] to initialize the text fields
    UpdateUser({Key? key, @required username, @required password, @required first_name, @required last_name, @required email}) : super(key: key){
       this.username = username;
       this.password = password;
@@ -25,7 +27,7 @@ class _UpdateUserState extends State<UpdateUser> {
 
   _UpdateUserState({@required username, @required password, @required first_name, @required last_name, @required email}) {
 
-    
+    // Initializing the fields using the controllers in the constructor
     usernameC.text = username.toString();
     emailC.text = email.toString();
     passwordC.text = password.toString();
@@ -34,6 +36,7 @@ class _UpdateUserState extends State<UpdateUser> {
 
   }
 
+  // Initializing the field controllers
   TextEditingController emailC = TextEditingController();
   TextEditingController usernameC = TextEditingController();
   TextEditingController passwordC = TextEditingController();
@@ -42,11 +45,12 @@ class _UpdateUserState extends State<UpdateUser> {
 
    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    
+    /// This function collects all the values updated by the user and reflects those updates into the database
    UpdateUserFunction(BuildContext context) async {
 
     await FirebaseCrud.updateUser(email: emailC.text,username: usernameC.text,password: passwordC.text,first_name: first_nameC.text, last_name:last_nameC.text);
 
+    // Updating the session with all the user information
     await SessionManager().set("username", usernameC.text);
     await SessionManager().set("first_name", first_nameC.text);
     await SessionManager().set("last_name", last_nameC.text);

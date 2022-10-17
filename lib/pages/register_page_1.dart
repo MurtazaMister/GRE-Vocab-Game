@@ -14,11 +14,12 @@ class RegisterPage1 extends StatefulWidget {
 class _RegisterPage1State extends State<RegisterPage1> {
   // final _formkey = GlobalKey<FormState>();
 
-  final first_name = TextEditingController();
-  final last_name = TextEditingController();
+  final first_name = TextEditingController(); // indicates the first name field of the user
+  final last_name = TextEditingController(); // indicates the last name field of the user
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>(); // Initializing the form key for validations
 
+  /// To navigate the user to second page of the registration form
   moveToRegisterPage2(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       Navigator.push(
@@ -28,6 +29,7 @@ class _RegisterPage1State extends State<RegisterPage1> {
                     firstname: first_name,
                     lastname: last_name,
                   )));
+      // If the form contains valid values, redirect the user to second page
     }
   }
 

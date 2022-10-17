@@ -4,9 +4,13 @@ import 'package:gre_dictionary_game/pages/homepage.dart';
 
 class Result extends StatelessWidget {
   List reportData = [];
+  
+  /// The constructor of stateless widget Result accepts the [reportData], the performance of user throughout the game
   Result({super.key, @required reportData}) {
     this.reportData = reportData;
   }
+
+  /// This function will return a [Container] having the complete information of the user's performance extracted from [reportData]
   Container getStatistics() {
     var numberOfVocabs = 0;
     var numberOfCorrectGuess = 0;

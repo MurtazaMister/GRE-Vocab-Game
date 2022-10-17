@@ -25,9 +25,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-/***
- * Displaying all the Vocabs that are 
- */
 class ViewVocabs extends StatefulWidget {
   const ViewVocabs({Key? key}) : super(key: key);
 
@@ -38,7 +35,8 @@ class ViewVocabs extends StatefulWidget {
 class _ViewVocabsState extends State<ViewVocabs> {
 
   final CollectionReference _vocabs = FirebaseFirestore.instance.collection("vocab");
-  // var first_name, last_name;
+  
+  /// This function will be used to redirect to the edit vocab page so that users can add new information or remove unnecessary info about the vocab. This function accepts all the arguments for the vocab such as - [word], [definition], [synonyms], and [example]
   moveToUpdateVocab(BuildContext context, String word, String definition, List<dynamic> synonyms, String example) async {
     
     Navigator.push(
@@ -52,6 +50,8 @@ class _ViewVocabsState extends State<ViewVocabs> {
       )));
     
   }
+
+  /// This function will redirect the user to the create page of vocabs where a user can add a new vocab into the database of GRE vocabs
    moveToAddVocab(BuildContext context) async {
     
     Navigator.push(
@@ -87,20 +87,6 @@ class _ViewVocabsState extends State<ViewVocabs> {
                           title: Text(documentSnapshot['word']),
                           subtitle: Text(documentSnapshot['definition'].toString()),
                         ),
-                  
-                        // Padding(
-                        //   padding: const EdgeInsets.only(right: 10,bottom: 10),
-                        //   child: FloatingActionButton(
-                            
-                        //     heroTag: documentSnapshot['word'],
-                        //     onPressed: () {
-                              
-                        //       moveToUpdateVocab(context, documentSnapshot['word'].toString(), documentSnapshot['definition'].toString(), documentSnapshot['synonyms'] as List<dynamic>, documentSnapshot['example'].toString());
-                        //     },
-                        //     backgroundColor: Colors.green,
-                        //     child: const Icon(Icons.edit),
-                        //   ),
-                        // )
                     ],),
                   )
                   
