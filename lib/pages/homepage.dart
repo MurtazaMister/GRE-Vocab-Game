@@ -29,9 +29,12 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green,
         title: Text("GRE Dictionary game"),
         actions: [
-          FloatingActionButton(onPressed: () async {
+          FloatingActionButton(
+            backgroundColor: Colors.green,
+            onPressed: () async {
 
             String username = await SessionManager().get("username");
             String email = await SessionManager().get("email");

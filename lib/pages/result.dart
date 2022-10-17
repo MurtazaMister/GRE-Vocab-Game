@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:gre_dictionary_game/pages/hangman.dart';
 import 'package:gre_dictionary_game/pages/homepage.dart';
 
 class Result extends StatelessWidget {
@@ -23,6 +24,7 @@ class Result extends StatelessWidget {
     });
 
     return Container(
+        
       child: Column(children: <Widget>[
         Padding(
           padding: EdgeInsets.all(10),
@@ -53,7 +55,17 @@ class Result extends StatelessWidget {
           ),
         ),
       ]),
-      decoration: BoxDecoration(
+      
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: SizedBox.expand(
+        child: Container(
+          decoration: BoxDecoration(
+
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
@@ -63,27 +75,40 @@ class Result extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Container(
-        child: Column(children: [
-          SizedBox(
-            height: 200,
-            width: 200,
-          ),
-          getStatistics(),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => HomePage()));
-            },
-            child: Text("Back to Home"),
-          ),
-        ]),
+          child: Column(children: [
+            SizedBox(
+              height: 200,
+              width: 200,
+            ),
+            getStatistics(),
+            SizedBox(height: 20,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.green[600])
+                            ),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => Hangman()));
+                  },
+                  child: Text("Begin another game"),
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.green[600])
+                            ),
+                  onPressed: () {
+                    Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => HomePage()));
+                  },
+                  child: Text("Back to Home"),
+                ),
+              ],
+            ),
+          ]),
+        ),
       ),
     );
   }

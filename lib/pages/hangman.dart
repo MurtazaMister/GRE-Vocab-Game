@@ -145,6 +145,7 @@ class _HangmanState extends State<Hangman> {
             height: 55,
             width: 45,
             child: FloatingActionButton(
+              
               onPressed: disabledAlphabets[i] == 0
                   ? () {
                       onSelect(alphabets[i]);
@@ -153,7 +154,7 @@ class _HangmanState extends State<Hangman> {
               heroTag: i,
               child: Text(alphabets[i]),
               backgroundColor:
-                  disabledAlphabets[i] == 0 ? Colors.blue : Colors.grey,
+                  disabledAlphabets[i] == 0 ? Colors.green : Colors.grey,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)),
             ),
@@ -246,6 +247,7 @@ class _HangmanState extends State<Hangman> {
                             ),
                             !isHintUsed
                                 ? FloatingActionButton.small(
+                                  backgroundColor: Colors.green,
                                     onPressed: () {
                                       isHintUsed = true;
                                       setState(() {});
@@ -298,6 +300,9 @@ class _HangmanState extends State<Hangman> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.green)
+                      ),
                         onPressed: () {
                           Navigator.push(
                               context,
@@ -308,6 +313,9 @@ class _HangmanState extends State<Hangman> {
                         },
                         child: Text("End game")),
                     ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.green)
+                      ),
                         onPressed: () {
                           currentData = null;
                           toGuess = "";
