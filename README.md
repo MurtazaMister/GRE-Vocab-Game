@@ -11,10 +11,10 @@ Many students preparing for the **Graduate Records Examination** need to have a 
 - A *Hangman* game to test their vocabularies' skill set.
 
 ## Dependencies
-> cupertino_icons: ^1.0.2
-> firebase_core: ^1.24.0
-> firebase_messaging: ^13.0.4
-> cloud_firestore: ^3.5.1
+> cupertino_icons: ^1.0.2  
+> firebase_core: ^1.24.0  
+> firebase_messaging: ^13.0.4  
+> cloud_firestore: ^3.5.1  
 > flutter_session_manager: ^1.0.3
 
 ## Setting up the project
